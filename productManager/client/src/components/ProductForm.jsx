@@ -2,11 +2,16 @@
 import React, { useState } from 'react'
 import axios from 'axios';
 
-export default () => {
+const Main = (props) => {
     //keep track of what is being typed via useState hook
     const [title, setTitle] = useState(""); 
     const [price, setPrice] = useState("");
     const [description, setDescription] = useState("");
+
+    useEffect(() =>{
+        axios.get('http://localhost:8000/api/product')
+        .then(res => {setTitle(res.data); setPrice(res.data); setDescription(res.data);}).catch(err => {console.error(err);})
+    })
 
     //handler when the form is submitted
     const onSubmitHandler = e => {
